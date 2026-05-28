@@ -1,0 +1,45 @@
+READ ME File:
+
+
+First clone the repo:https://github.com/nv-tlabs/kimodo
+Download the models from hugging face: Kimodo-G1-RP-v1 and Kimodo-G1-SEED-v1
+Follow the kimodo kimodo installation documention:https://research.nvidia.com/labs/sil/projects/kimodo/docs/getting_started/installation.html#
+and follow the readme of kimodo
+After these steps: u can generate the motion mimics data by using prompt by using these command
+	kimodo_gen "A person walks forward." \
+    --model Kimodo-G1-RP-v1 \
+    --duration 5.0 \
+    --output output
+    
+execute these command python -m kimodo.scripts.mujoco_load and also place generated dataset in mujoco_load so u can view the robot is performing the motion based on generated dataset
+
+For next Step follow the ProtoMotions link
+
+clone repo:https://github.com/NVlabs/ProtoMotions
+Follow the installation steps and documentation :https://nvlabs.github.io/ProtoMotions/getting_started/installation.html
+Go to SEED G1 CSV Data Preparation and follow the steps or u execute the following command
+# Correct conversion
+python data/scripts/convert_g1_csv_to_proto.py \
+    --input-dir /home/aiemumbai-devise/Projects/humanoid/packages/kimodo/jumper \
+    --output-dir /home/aiemumbai-devise/Projects/humanoid/packages/ProtoMotions/motions \
+    --input-fps 120 \
+    --output-fps 30 \
+    --pos-units m \
+    --rot-format quat_wxyz \
+    --joint-units rad \
+    --no-has-header \
+    --no-has-frame-column \
+    --force-remake
+after executing it .motion file will generated 
+
+after that already nvlabs already provided the already pre-trained model we use that and follow the documentation steps after generated the motion file
+
+For deployment we need to follow the robojudo pipeline:https://github.com/HansZ8/RoboJuDo.git and follow the steps
+after installations: for executing these command python scripts/run_pipeline.py -c g1_protomotions_bm_tracker
+u need replace these file g1_custom_cfg.py with provided these provided g1_custom_cfg.py file
+in robojudo folder-->config folder-->g1 folder--> these g1_custom_cfg.py file will there, replace these file with provided file 
+
+and deployment in simulation:
+python scripts/run_pipeline.py -c g1_protomotions_bm_tracker then mujoco viewer will appear then in terminal press r for start and o for shutdown
+ and deployment in real robot:
+python scripts/run_pipeline.py -c g1_protomotions_bm_tracker_real same r for start and o shutdown
