@@ -39,6 +39,7 @@ after installations: for executing these command python scripts/run_pipeline.py 
 u need replace these file g1_custom_cfg.py with provided these provided g1_custom_cfg.py file
 in robojudo folder-->config folder-->g1 folder--> these g1_custom_cfg.py file will there, replace these file with provided file 
 
+and also replace file of protomotions_tracker_policy.py which is present in robojudo with the provided file
 and deployment in simulation:
 python scripts/run_pipeline.py -c g1_protomotions_bm_tracker then mujoco viewer will appear then in terminal press r for start and o for shutdown
  and deployment in real robot:
